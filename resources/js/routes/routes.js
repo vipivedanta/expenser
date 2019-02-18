@@ -7,7 +7,6 @@ import frontendRoutes from '../routes/frontend-routes';
 Vue.use(VueRouter);
 var allRoutes = [];
 allRoutes = allRoutes.concat(backendRoutes,frontendRoutes);
-console.log(allRoutes)
 const router = new VueRouter({
     mode : 'history',
     routes : allRoutes
