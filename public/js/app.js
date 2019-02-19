@@ -1855,7 +1855,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  methods: _objectSpread({}, vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"]['hitLoginAPI'], {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['hitLoginAPI']), {
     tryLogin: function tryLogin() {
       if (this.user.email == null) {
         this.error.email = null;
@@ -53076,6 +53076,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/env.js":
+/*!*****************************!*\
+  !*** ./resources/js/env.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var env = {
+  API_URL: 'http://localhost:8000/api/'
+};
+/* harmony default export */ __webpack_exports__["default"] = (env);
+
+/***/ }),
+
 /***/ "./resources/js/routes/backend-routes.js":
 /*!***********************************************!*\
   !*** ./resources/js/routes/backend-routes.js ***!
@@ -53180,26 +53196,34 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _env__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../env */ "./resources/js/env.js");
+
 
 var getters = {};
 var states = {
   accessToken: null
 };
-var mutators = {};
+var mutations = {
+  setAccessToken: function setAccessToken(state, accessToken) {
+    return state.accessToken = accessToken;
+  }
+};
 var actions = {
-  hitLoginAPI: function hitLoginAPI(email, password) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + 'login', {
+  hitLoginAPI: function hitLoginAPI(_ref, email, password) {
+    var commit = _ref.commit;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_env__WEBPACK_IMPORTED_MODULE_1__["default"].API_URL + 'login', {
       email: email,
       password: password
     }).then(function (response) {
-      return state.accessToken = response.access_token;
+      commit('setAccessToken', response.data.access_token);
+      localStorage.setItem('access-token', response.data.access_token);
     });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   states: states,
   getters: getters,
-  mutators: mutators,
+  mutations: mutations,
   actions: actions
 });
 
@@ -53223,8 +53247,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\xampp\htdocs\expenser\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! c:\xampp\htdocs\expenser\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\expenser\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\expenser\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

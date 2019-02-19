@@ -49,7 +49,7 @@ export default {
         }
     },
     methods : {
-        ...mapActions[ 'hitLoginAPI' ],
+        ...mapActions([ 'hitLoginAPI' ]),
         tryLogin(){
             
             if(this.user.email == null){

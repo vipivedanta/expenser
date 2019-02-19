@@ -1,23 +1,29 @@
 import axios from 'axios';
+import env from '../../env';
 
 const getters = {};
 const states = {
     accessToken : null
 };
-const mutators = {};
+const mutations = {
+    setAccessToken : (state,accessToken) => state.accessToken = accessToken
+};
 
 const actions = {
-    hitLoginAPI : function(email,password){
-        axios.get(API_URL + 'login',{
+    hitLoginAPI : function( {commit},email,password){
+        axios.get(env.API_URL + 'login',{
             email : email,
             password : password
-        }).then( response => (state.accessToken = response.access_token));
+        }).then( response => {
+            commit('setAccessToken',response.data.access_token);
+            localStorage.setItem('access-token',response.data.access_token)
+        })
     }
 };
 
 export default{
     states,
     getters,
-    mutators,
+    mutations,
     actions
 }
