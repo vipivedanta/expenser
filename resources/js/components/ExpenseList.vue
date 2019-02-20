@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <h4>Your expenses so far</h4>
+        <h5>Your expenses so far <a href="#" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#CreateExpense">Add new?</a></h5>
         <table class="table table-striped table-condensed">
             <thead>
             <th>Date</th>

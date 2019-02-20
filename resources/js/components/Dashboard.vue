@@ -5,6 +5,7 @@
         
         <div class="row">
             <div class="col-md-7">
+                <CreateExpense></CreateExpense>
                 <ExpenseList></ExpenseList>
             </div>
         </div>
@@ -16,6 +17,7 @@ import { mapGetters } from 'vuex';
 import Header from './templates/Header';
 import Message from './templates/Message';
 import ExpenseList from './ExpenseList';
+import CreateExpense from './CreateExpense';
 
 export default {
     name : 'Dashboard',
@@ -25,7 +27,8 @@ export default {
     components : {
         Header,
         Message,
-        ExpenseList
+        ExpenseList,
+        CreateExpense
     }
 }
 </script>
