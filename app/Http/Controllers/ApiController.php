@@ -44,4 +44,25 @@ class ApiController extends Controller
             ],201);
         }
     }
+
+    /**
+     * Logout function
+     * @param void
+     * @return Void
+     */
+    public function logout(){
+        try{
+            Auth::logout();
+            return response()->json([
+                'status' => true,
+                'message' => 'You are successfully logged out'
+            ]);
+
+        }catch(Exception $e){
+            return response()->json([
+                'status' => false,
+                'error' => $e->getMessage()
+            ],401);
+        }
+    }
 }

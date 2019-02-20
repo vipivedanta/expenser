@@ -1,5 +1,8 @@
 <template>
     <div>
+
+        <Message></Message>
+
         <form>
         <div class="alert alert-danger" v-if="invalidLoginError != false">
             {{ invalidLoginError }}
@@ -39,9 +42,13 @@
 <script>
 
 import  { mapActions, mapGetters } from 'vuex';
+import Message from './templates/Message';
 
 export default {
     name : 'Login',
+    components : {
+        Message
+    },
     data(){
         return {
             user : {

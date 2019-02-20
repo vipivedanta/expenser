@@ -38,6 +38,7 @@ const actions = {
                 rootState.User.user = response.data.user;
                 commit('setPasswordError',null);
                 commit('setEmailError',null);
+                rootState.Message.messages = rootState.Message.defaultMessages;
                 router.push('/dashboard');                
             }else{
                 commit('setInvalidLoginError',response.data.error);                
@@ -55,6 +56,17 @@ const actions = {
             }
         })
         
+    },
+    hitLogoutAPI : function( { rootState }){
+        axios.post(env.API_URL+'logout').then( response => {
+            if(response.data.status == true){
+                rootState.User.user = {};
+                rootState.Message.messages.success = response.data.message;
+                router.push('/login');
+            }else{
+                rootState.Message.messages.error = response.data.error;
+            }
+        })
     }
 };
 
