@@ -2,7 +2,12 @@
     <div>
         <Header></Header>
         <Message></Message>
-        Welcome to Expenser {{ getUser.name }}
+        
+        <div class="row">
+            <div class="col-md-7">
+                <ExpenseList></ExpenseList>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -10,6 +15,7 @@
 import { mapGetters } from 'vuex';
 import Header from './templates/Header';
 import Message from './templates/Message';
+import ExpenseList from './ExpenseList';
 
 export default {
     name : 'Dashboard',
@@ -18,7 +24,8 @@ export default {
     },
     components : {
         Header,
-        Message
+        Message,
+        ExpenseList
     }
 }
 </script>

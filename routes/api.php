@@ -8,3 +8,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login','ApiController@login');
 Route::post('logout','ApiController@logout');
+Route::post('expenses','ExpenseController@getExpenses');
