@@ -1784,6 +1784,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1826,8 +1831,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'CreateExpense'
+  name: 'CreateExpense',
+  data: function data() {
+    return {
+      expense: {
+        expense: null,
+        amount: 0,
+        comment: null
+      }
+    };
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['addExpense']), {
+    saveExpense: function saveExpense() {
+      this.addExpense(this.expense);
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['isExpenseCreated'])),
+  watch: {
+    isExpenseCreated: function isExpenseCreated(status) {
+      if (status) {
+        $('.modal').modal('hide');
+        $(document.body).removeClass('modal-open');
+        $('.modal-backdrop').remove();
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -1920,6 +1953,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ExpenseList',
@@ -1929,7 +1964,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['expenses']), {
     totalAmount: function totalAmount() {
-      return 1000.00;
+      var total = 0;
+      this.expenses.forEach(function (item) {
+        total += parseFloat(item.amount);
+      });
+      return total.toFixed(2);
     }
   })
 });
@@ -37835,141 +37874,179 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "modal in",
+      attrs: { tabindex: "-1", role: "dialog", id: "CreateExpense" }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("form", [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v("Expense")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.expense.expense,
+                      expression: "expense.expense"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Movies/Vegitables/Household/Tax ?"
+                  },
+                  domProps: { value: _vm.expense.expense },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.expense, "expense", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v("Date")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.expense.date,
+                      expression: "expense.date"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date" },
+                  domProps: { value: _vm.expense.date },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.expense, "date", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                  _vm._v("Amount")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.expense.amount,
+                      expression: "expense.amount"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "in Rupees" },
+                  domProps: { value: _vm.expense.amount },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.expense, "amount", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+                  _vm._v("Comments")
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.expense.comment,
+                      expression: "expense.comment"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  domProps: { value: _vm.expense.comment },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.expense, "comment", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.saveExpense }
+              },
+              [_vm._v("Save this")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary close-modal",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Close")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Create Expense")]),
+      _vm._v(" "),
       _c(
-        "div",
+        "button",
         {
-          staticClass: "modal in",
-          attrs: { tabindex: "-1", role: "dialog", id: "CreateExpense" }
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
         },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog", attrs: { role: "document" } },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _c("div", { staticClass: "modal-header" }, [
-                  _c("h5", { staticClass: "modal-title" }, [
-                    _vm._v("Create Expense")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "close",
-                      attrs: {
-                        type: "button",
-                        "data-dismiss": "modal",
-                        "aria-label": "Close"
-                      }
-                    },
-                    [
-                      _c("span", { attrs: { "aria-hidden": "true" } }, [
-                        _vm._v("×")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-body" }, [
-                  _c("form", [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                        _vm._v("Expense")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "email",
-                          id: "exampleInputEmail1",
-                          "aria-describedby": "emailHelp",
-                          placeholder: "Enter email"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "small",
-                        {
-                          staticClass: "form-text text-muted",
-                          attrs: { id: "emailHelp" }
-                        },
-                        [_vm._v("Movies/Vegitables/Household/Tax ?")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-                        _vm._v("Password")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "password",
-                          id: "exampleInputPassword1",
-                          placeholder: "Password"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check" }, [
-                      _c("input", {
-                        staticClass: "form-check-input",
-                        attrs: { type: "checkbox", id: "exampleCheck1" }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "form-check-label",
-                          attrs: { for: "exampleCheck1" }
-                        },
-                        [_vm._v("Check me out")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Submit")]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Save changes")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary",
-                      attrs: { type: "button", "data-dismiss": "modal" }
-                    },
-                    [_vm._v("Close")]
-                  )
-                ])
-              ])
-            ]
-          )
-        ]
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
     ])
   }
@@ -38052,6 +38129,8 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(expense.expense))]),
                   _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(expense.comments))]),
+                  _vm._v(" "),
                   _c("td", { staticClass: "text-right" }, [
                     _vm._v(_vm._s(expense.amount))
                   ])
@@ -38062,7 +38141,7 @@ var render = function() {
                 _vm._m(2),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-right" }, [
-                  _vm._v(_vm._s(_vm.totalAmount.toFixed(2)))
+                  _vm._v(_vm._s(_vm.totalAmount))
                 ])
               ])
             ],
@@ -38097,10 +38176,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "bg-info" }, [
       _c("th", [_vm._v("Date")]),
       _vm._v(" "),
       _c("th", [_vm._v("Expense")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Comments")]),
       _vm._v(" "),
       _c("th", [_vm._v("Amount")])
     ])
@@ -38109,7 +38190,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "text-right", attrs: { colspan: "2" } }, [
+    return _c("td", { staticClass: "text-right", attrs: { colspan: "3" } }, [
       _c("strong", [_vm._v("Total")])
     ])
   }
@@ -54970,23 +55051,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
-  expenses: {}
+  expenses: {},
+  expenseCreated: false
 };
 var getters = {
   expenses: function expenses(state) {
     return state.expenses;
+  },
+  isExpenseCreated: function isExpenseCreated(state) {
+    return state.expenseCreated;
   }
 };
 var mutations = {
   setExpenses: function setExpenses(state, expenses) {
     return state.expenses = expenses;
+  },
+  addExpense: function addExpense(state, expense) {
+    return state.expenses.push({
+      expense: expense.expense,
+      amount: parseFloat(expense.amount).toFixed(2),
+      expense_date: expense.date,
+      comments: expense.comment
+    });
+  },
+  updateExpenseCreated: function updateExpenseCreated(state, status) {
+    return state.expenseCreated = status;
   }
 };
 var actions = {
   getExpenses: function getExpenses(_ref) {
     var commit = _ref.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_env__WEBPACK_IMPORTED_MODULE_1__["default"].API_URL + 'expenses').then(function (response) {
-      return commit('setExpenses', response.data.expenses);
+      commit('setExpenses', response.data.expenses);
+    });
+  },
+  addExpense: function addExpense(_ref2, expense) {
+    var commit = _ref2.commit,
+        rootState = _ref2.rootState;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_env__WEBPACK_IMPORTED_MODULE_1__["default"].API_URL + 'save-expense', expense).then(function (response) {
+      commit('addExpense', expense);
+      commit('updateExpenseCreated', true);
+      rootState.Message.messages.success = response.data.msg;
     });
   }
 };

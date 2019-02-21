@@ -33,4 +33,34 @@ class ExpenseController extends Controller
             ],402);
         }
     }
+
+    /**
+     * Save new expense
+     * @param expense object
+     * @return json
+     */
+    public function saveExpense( Request $request ){
+        try{
+
+            $expense = new Expense;
+            $expense->expense = $request->expense;
+            $expense->amount = $request->amount;
+            $expense->expense_date = $request->date;
+            $expense->comments = $request->comment;
+            $expense->user_id = 1;
+            $expense->save();
+
+            return response()->json([
+                'status' => true,
+                'msg' => 'Expense data has been saved successfully',
+                'expense' => $expense
+            ]);
+
+        }catch(Exception $e){
+            return response()->json([
+                'status' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }
