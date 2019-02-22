@@ -14,7 +14,8 @@ const getters = {
     emailError : state => state.emailError,
     passwordError : state => state.passwordError,
     invalidLoginError : state => state.invalidLoginError,
-    processing : state => state.processing
+    processing : state => state.processing,
+    accessToken : state => state.accessToken
 };
 
 const mutations = {

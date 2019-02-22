@@ -1,15 +1,18 @@
 <template>
-    <div class="header row">
-        <div class="site-name col-md-2">{{ site_name }}</div>
+    <div class="header site-name row">
+        <div class="site-name col-md-2" :title="site_name">
+            <font-awesome-icon icon="money " />
+            <span class="span-1">The</span><span class="span-2">Expenser</span>
+            </div>
         <div class="menus col-md-10 text-right">
-            <a href="#" @click="hitLogoutAPI">Logout</a>
+            <a v-if="accessToken != null" href="#" @click="hitLogoutAPI">Logout</a>
         </div>
     </div>
 </template>
 
 <script>
 import env from '../../env';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name : 'Header',
     data(){
@@ -19,6 +22,9 @@ export default {
     },
     methods : {
         ...mapActions(['hitLogoutAPI'])
+    },
+    computed : {
+        ...mapGetters(['accessToken'])
     }
 }
 </script>
@@ -28,4 +34,14 @@ export default {
      padding:5px;
      display:block;
  }
+
+.span-1{
+    background: orange;
+    color:#000;    
+}
+.span-1,.span-2{
+    border:solid 1px orange;
+    padding: 5px;
+    font-weight: 800;
+}
 </style> 

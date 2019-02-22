@@ -1,7 +1,5 @@
 <template>
-    <div>
-
-        <Message></Message>
+    <div class="row d-flex justify-content-center align-items-center">
 
         <form>
         <div class="alert alert-danger" v-if="invalidLoginError != false">
@@ -25,15 +23,11 @@
             <p class="form-text text-danger" v-if="passwordError != false">{{ passwordError}}</p>
         </div>
 
-        <!--Remember me-->
-        <!--<div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-        </div>-->
-
         <!--login btn-->
-        <button v-if="processing==false" type="button" class="btn btn-primary" @click="tryLogin">Login</button>
-        <button v-if="processing==true" type="button" class="btn btn-info" disabled>Logging in...</button>
+        <div class="form-group text-right">
+            <button v-if="processing==false" type="button" class="btn btn-primary" @click="tryLogin">Login</button>
+            <button v-if="processing==true" type="button" class="btn btn-info" disabled>Logging in...</button>
+        </div>
         
         </form>
     </div>
@@ -43,11 +37,13 @@
 
 import  { mapActions, mapGetters } from 'vuex';
 import Message from './templates/Message';
+import Header from './templates/Header';
 
 export default {
     name : 'Login',
     components : {
-        Message
+        Message,
+        Header
     },
     data(){
         return {
@@ -88,3 +84,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.justify-content-center{
+    height : 500px;
+}
+</style>
