@@ -18,8 +18,22 @@ class ExpenseController extends Controller
      */
     public function getExpenses(Request $request){
         try{
-            
-            $expenses = Expense::all();
+
+            if($request->has('filter')){
+                $expenses = Expense::whereNull('deleted_at');
+                if($request->filter['date'] != ''){
+                    $date = date('Y-m-d',strtotime($request->filter['date']));
+                    $expenses = $expenses->whereDate('expense_date','=',$date);
+                }
+               
+                if($request->filter['expense'] != null)
+                    $expenses = $expenses->where('expense','like','%'.$request->filter['expense'].'%');                
+
+                $expenses = $expenses->get();
+
+            }else{
+                $expenses = Expense::all();
+            }
 
             return response()->json([
                 'status' => true,
