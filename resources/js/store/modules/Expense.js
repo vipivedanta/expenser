@@ -3,7 +3,8 @@ import env from '../../env';
 
 const state = {
     expenses : {},
-    expenseCreated : false
+    expenseCreated : false,
+    filter : false
 };
 
 const getters = {
@@ -19,16 +20,23 @@ const mutations = {
         expense_date : expense.date,
         comments : expense.comment
     }),
-    updateExpenseCreated : (state,status) => state.expenseCreated = status
+    updateExpenseCreated : (state,status) => state.expenseCreated = status,
+    setFilter : (state,filter) => state.filter = filter
 }
 
 const actions = {
-    getExpenses({commit}){
-        axios.post( env.API_URL + 'expenses')
+    
+    /*get the expenses from api*/
+    getExpenses({commit,state}){
+        axios.post( env.API_URL + 'expenses', {
+            filter : state.filter
+        })
         .then( response => {
             commit('setExpenses', response.data.expenses );            
         });
     },
+
+    /*add new expense to api*/
     addExpense({commit,rootState},expense){
         axios.post( env.API_URL + 'save-expense',expense)
         .then( response => {
@@ -36,6 +44,12 @@ const actions = {
             commit('updateExpenseCreated',true);
             rootState.Message.messages.success = response.data.msg;
         })       
+    },
+
+    /* filter the expense list*/
+    filterExpense({commit, dispatch},filter){
+        commit('setFilter',filter);
+        dispatch('getExpenses');
     }
 }; 
 

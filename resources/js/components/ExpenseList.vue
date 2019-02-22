@@ -1,7 +1,9 @@
 <template>
     <div class="row">
         <h5>Your expenses so far <a href="#" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#CreateExpense">Add new?</a></h5>
-        <table class="table table-striped table-condensed">
+        <ExpenseSearch></ExpenseSearch>
+        <div class="row">
+        <table class="table table-striped table-condensed table-bordered">
             <thead class="bg-info">
             <th>Date</th>
             <th>Expense</th>
@@ -21,14 +23,19 @@
              </tr> 
             </tbody>
         </table>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import ExpenseSearch from '../components/ExpenseSearch';
 
 export default {
     name : 'ExpenseList',
+    components : {
+        ExpenseSearch
+    },
     methods : {
         ...mapActions(['getExpenses'])
     },
